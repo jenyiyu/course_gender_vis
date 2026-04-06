@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>性別、大數據與視覺化</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .gradient-hero {
+            background: linear-gradient(135deg, #3b4555 0%, #4a5568 40%, #6b7a8d 100%);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        .blob {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: blob 8s ease-in-out infinite;
+        }
+        @keyframes blob {
+            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            25% { border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%; }
+            50% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
+            75% { border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%; }
+        }
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px;
+            background: linear-gradient(90deg, #6b87a8, #7da3b8); transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .topic-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .topic-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+        }
+        .topic-card:hover .card-img { transform: scale(1.05); }
+        .card-img { transition: transform 0.6s ease; }
+        .topic-number {
+            font-size: 8rem; line-height: 1; font-weight: 900;
+            opacity: 0.06; position: absolute; top: -20px; right: 20px;
+        }
+        .competency-card {
+            transition: all 0.3s ease; counter-increment: comp;
+        }
+        .competency-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+        .competency-card::before {
+            content: counter(comp, decimal-leading-zero);
+            position: absolute; top: -12px; left: 20px;
+            font-size: 3rem; font-weight: 900; opacity: 0.08; line-height: 1;
+        }
+        .section-counter { counter-reset: comp; }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#home" class="text-lg font-bold text-slate-600">性別、大數據與視覺化</a>
+            <div class="flex gap-6 text-sm font-medium">
+                <a href="#home" class="nav-link text-gray-500 hover:text-slate-600 transition">首頁</a>
+                <a href="#competencies" class="nav-link text-gray-500 hover:text-slate-600 transition">核心能力</a>
+                <a href="#meta-thinking" class="nav-link text-gray-500 hover:text-slate-600 transition">後設思考</a>
+                <a href="#data-viz" class="nav-link text-gray-500 hover:text-slate-600 transition">資料與視覺化</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== HOME ==================== -->
+    <section id="home" class="gradient-hero min-h-[85vh] flex items-center relative overflow-hidden">
+        <div class="absolute top-20 right-10 w-72 h-72 bg-slate-400/15 blob"></div>
+        <div class="absolute bottom-20 left-10 w-96 h-96 bg-slate-300/10 blob" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-1/3 w-48 h-48 bg-gray-300/10 blob" style="animation-delay: 4s;"></div>
+        <div class="max-w-6xl mx-auto px-6 relative z-10 text-white">
+            <p class="text-lg font-light tracking-widest mb-4 opacity-90">COURSE</p>
+            <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">性別、大數據<br>與視覺化</h1>
+            <p class="text-xl md:text-2xl font-light max-w-2xl leading-relaxed opacity-90">
+                從資料視覺化的角度，提供處理、分析、理解、呈現資料的後設思考、技巧和工具。
+            </p>
+            <div class="mt-10 flex gap-4">
+                <a href="#meta-thinking" class="px-8 py-3 bg-white text-slate-700 font-semibold rounded-full hover:bg-gray-100 transition shadow-lg">開始探索</a>
+                <a href="#competencies" class="px-8 py-3 border-2 border-white/60 text-white font-semibold rounded-full hover:bg-white/10 transition">核心能力</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instructor -->
+    <section class="py-16 px-6 bg-white">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
+            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-slate-100 to-gray-100 flex items-center justify-center shrink-0 overflow-hidden border-4 border-white shadow-lg">
+                <img src="images/instructor.jpeg" alt="余貞誼" class="w-full h-full object-cover">
+            </div>
+            <div class="text-center md:text-left">
+                <p class="text-sm text-slate-500 font-medium tracking-wide mb-1">授課教師</p>
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">余貞誼</h3>
+                <p class="text-gray-500">高雄醫學大學 性別研究所</p>
+                <a href="mailto:chenyiyu@kmu.edu.tw" class="inline-flex items-center gap-2 text-slate-600 hover:text-slate-800 transition mt-2 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    chenyiyu@kmu.edu.tw
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Objective -->
+    <section class="py-20 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-block px-4 py-1 bg-slate-100 text-slate-600 rounded-full text-sm font-medium mb-6">課程目標</span>
+            <p class="text-xl md:text-2xl leading-relaxed text-gray-600">
+                本課程從<span class="text-slate-700 font-semibold">資料視覺化（visualization）</span>的角度，來提供處理、分析、理解、呈現資料的後設思考、技巧和工具。課程組織的形式分為「<span class="text-slate-600 font-semibold">資料與視覺化的後設思考</span>」與「<span class="text-slate-600 font-semibold">資料處理與視覺化</span>」兩大單元。
+            </p>
+        </div>
+    </section>
+
+    <!-- Two Pillars -->
+    <section class="py-16 px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
+            <a href="#meta-thinking" class="card-hover group block">
+                <div class="bg-gradient-to-br from-slate-600 to-slate-500 rounded-3xl p-10 text-white relative overflow-hidden min-h-[320px] flex flex-col justify-end">
+                    <div class="absolute top-6 right-6 w-24 h-24 bg-white/10 rounded-full"></div>
+                    <div class="absolute top-12 right-12 w-16 h-16 bg-white/10 rounded-full"></div>
+                    <span class="text-sm font-light tracking-widest opacity-80 mb-2">UNIT 1</span>
+                    <h2 class="text-3xl font-bold mb-4">資料與視覺化的<br>後設思考</h2>
+                    <p class="text-white/85 leading-relaxed">從資料研究的本體論與認識論著手，探討資料中潛藏的權力關係和性別痕跡，並探究視覺化技術立基的認識論如何導引我們所確立的視覺化標準及表達形式。</p>
+                    <div class="mt-6 flex items-center gap-2 text-white/80 group-hover:text-white transition">
+                        <span class="text-sm font-medium">瀏覽課程</span>
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </div>
+                </div>
+            </a>
+            <a href="#data-viz" class="card-hover group block">
+                <div class="bg-gradient-to-br from-slate-500 to-gray-500 rounded-3xl p-10 text-white relative overflow-hidden min-h-[320px] flex flex-col justify-end">
+                    <div class="absolute top-6 right-6 w-24 h-24 bg-white/10 rounded-full"></div>
+                    <div class="absolute top-12 right-12 w-16 h-16 bg-white/10 rounded-full"></div>
+                    <span class="text-sm font-light tracking-widest opacity-80 mb-2">UNIT 2</span>
+                    <h2 class="text-3xl font-bold mb-4">資料處理<br>與視覺化</h2>
+                    <p class="text-white/85 leading-relaxed">以實際上機實作的方式，帶領學生認識數據資料，學習運用 Tableau 來進行資料整理與視覺化；並佐以既有的平台與 AI 工具，以多元的方式來處理資料和視覺化。</p>
+                    <div class="mt-6 flex items-center gap-2 text-white/80 group-hover:text-white transition">
+                        <span class="text-sm font-medium">瀏覽課程</span>
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== COMPETENCIES ==================== -->
+    <section id="competencies" class="pt-24 pb-16 px-6 bg-gradient-to-br from-gray-50 via-slate-50 to-gray-100">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-block px-4 py-1 bg-slate-200 text-slate-600 rounded-full text-sm font-medium mb-4">COMPETENCIES</span>
+            <h2 class="text-4xl md:text-5xl font-black text-slate-700">課程核心能力</h2>
+            <p class="mt-4 text-gray-500 text-lg">本課程培養兩大面向的核心能力</p>
+        </div>
+    </section>
+
+    <section class="py-16 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-600 to-slate-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">1</div>
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-800">資料與視覺化的後設思考</h3>
+            </div>
+            <div class="section-counter grid gap-5">
+                <div class="competency-card relative bg-white rounded-2xl p-6 pl-8 border-l-4 border-slate-400 shadow-sm">
+                    <h4 class="font-semibold text-lg text-slate-700 mb-1">資料本體論與認識論的批判性解構能力</h4>
+                    <p class="text-gray-500 text-sm">培養對資料本質與知識建構方式的批判性思考</p>
+                </div>
+                <div class="competency-card relative bg-white rounded-2xl p-6 pl-8 border-l-4 border-gray-400 shadow-sm">
+                    <h4 class="font-semibold text-lg text-slate-700 mb-1">資料生命週期的權力關係分析能力</h4>
+                    <p class="text-gray-500 text-sm">理解資料從產生到使用過程中的權力結構</p>
+                </div>
+                <div class="competency-card relative bg-white rounded-2xl p-6 pl-8 border-l-4 border-slate-300 shadow-sm">
+                    <h4 class="font-semibold text-lg text-slate-700 mb-1">視覺化知識論的歷史溯源與反思能力</h4>
+                    <p class="text-gray-500 text-sm">追溯視覺化背後的知識論基礎與歷史脈絡</p>
+                </div>
+                <div class="competency-card relative bg-white rounded-2xl p-6 pl-8 border-l-4 border-gray-400 shadow-sm">
+                    <h4 class="font-semibold text-lg text-slate-700 mb-1">女性主義資料實踐與創新敘事能力</h4>
+                    <p class="text-gray-500 text-sm">運用女性主義觀點重新思考資料敘事的可能性</p>
+                </div>
+                <div class="competency-card relative bg-white rounded-2xl p-6 pl-8 border-l-4 border-slate-400 shadow-sm">
+                    <h4 class="font-semibold text-lg text-slate-700 mb-1">倫理自覺的資料論證與轉譯能力</h4>
+                    <p class="text-gray-500 text-sm">以倫理意識為基礎進行資料論證與知識轉譯</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="max-w-5xl mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div></div>
+
+    <section class="py-16 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex items-center gap-4 mb-10">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-500 to-gray-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">2</div>
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-800">資料處理與視覺化技巧</h3>
+            </div>
+            <div class="section-counter grid gap-5">
+                <div class="competency-card relative bg-white rounded-2xl p-6 pl-8 border-l-4 border-slate-400 shadow-sm">
+                    <h4 class="font-semibold text-lg text-slate-700 mb-1">理解資料科學與視覺化原理</h4>
+                    <p class="text-gray-500 text-sm">建立資料科學與視覺化的基礎概念</p>
+                </div>
+                <div class="competency-card relative bg-white rounded-2xl p-6 pl-8 border-l-4 border-gray-400 shadow-sm">
+                    <h4 class="font-semibold text-lg text-slate-700 mb-1">開放資料格式的獲取與轉換能力</h4>
+                    <p class="text-gray-500 text-sm">了解網路上主要的開放資料格式，具有獲取並將資料轉換為常用資訊服務的能力</p>
+                </div>
+                <div class="competency-card relative bg-white rounded-2xl p-6 pl-8 border-l-4 border-slate-300 shadow-sm">
+                    <h4 class="font-semibold text-lg text-slate-700 mb-1">視覺化圖表的使用時機與媒材區辨</h4>
+                    <p class="text-gray-500 text-sm">能了解視覺化圖表的使用時機，並區辨不同媒材呈現資料的特點</p>
+                </div>
+                <div class="competency-card relative bg-white rounded-2xl p-6 pl-8 border-l-4 border-slate-400 shadow-sm">
+                    <h4 class="font-semibold text-lg text-slate-700 mb-1">資料轉譯成視覺化敘事的能力</h4>
+                    <p class="text-gray-500 text-sm">具有將資料轉譯成視覺化敘事形式的能力</p>
+                </div>
+                <div class="competency-card relative bg-white rounded-2xl p-6 pl-8 border-l-4 border-gray-400 shadow-sm">
+                    <h4 class="font-semibold text-lg text-slate-700 mb-1">結合多樣化研究問題的分析應用</h4>
+                    <p class="text-gray-500 text-sm">與實際多樣化研究問題結合，有效分析與應用</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== META-THINKING ==================== -->
+    <section id="meta-thinking" class="pt-24 pb-16 px-6 bg-gradient-to-br from-gray-50 via-slate-50 to-gray-100">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-block px-4 py-1 bg-slate-200 text-slate-600 rounded-full text-sm font-medium mb-4">UNIT 1</span>
+            <h2 class="text-4xl md:text-5xl font-black text-slate-700">資料與視覺化的後設思考</h2>
+            <p class="mt-4 text-gray-500 text-lg">從批判性角度重新審視資料與視覺化</p>
+        </div>
+    </section>
+
+    <section class="py-16 px-6">
+        <div class="max-w-5xl mx-auto space-y-12">
+            <div class="topic-card bg-white rounded-3xl overflow-hidden shadow-md relative">
+                <div class="topic-number text-slate-900">01</div>
+                <div class="md:flex">
+                    <div class="md:w-2/5 overflow-hidden">
+                        <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7o4hqsLGBDxrArQOLNCnBRvTEoCx6-BsRIvhKTC3NDcNC0KzcDbQlVyYbqSqp4I1xgWhrOUvYuvOPoMTTWak6xI_PrBzxYWywJ0Y67onQlkrX4Qqf_xVdtH6_vulifce4GGQYtUBdWtArqKgsXKiNVjVNGtF_sj7BmotVlCTcIxF51bUROi?key=UBXZdXmlgf08IxvaRuO3LA" alt="大數據與視覺化導論" class="card-img w-full h-64 md:h-full object-cover">
+                    </div>
+                    <div class="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
+                        <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3">大數據與視覺化導論</h3>
+                        <p class="text-gray-500 leading-relaxed mb-4">認識大數據的基本概念，以及視覺化在資料分析中扮演的關鍵角色。</p>
+                        <a href="https://docs.google.com/presentation/d/e/2PACX-1vTO2V_hii3jobq8lkwjUyeOlRz-kgxHNUEm6T0BacNtrqVeGpzALafcTSFEN80djLaB35YCjvlqhbNk/pub?start=false&loop=false&delayms=3000" target="_blank" class="inline-flex items-center gap-2 text-slate-600 font-semibold hover:text-slate-800 transition text-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+                            查看簡報
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="topic-card bg-white rounded-3xl overflow-hidden shadow-md relative">
+                <div class="topic-number text-slate-900">02</div>
+                <div class="md:flex md:flex-row-reverse">
+                    <div class="md:w-2/5 overflow-hidden">
+                        <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7qsqvfVduHZX3tlGxKwefX4iwXokiNsPw-cLxDYcAizZw1gTWTf0Mz4BmZ-bR8C-4eUGYGLv_4tObojthIw4wyVKPRTQnhkREG5FLsU2BNOZHCezE22-qZyIjkGxmx7_NqD24RTjaHsp1CQ_ba9FeS175n3XLsEpiwwSHncw6-Wu7Tnhj2p?key=UBXZdXmlgf08IxvaRuO3LA" alt="資料視覺化的歷史、應用與識誤" class="card-img w-full h-64 md:h-full object-cover">
+                    </div>
+                    <div class="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
+                        <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3">資料視覺化的歷史、應用與識誤</h3>
+                        <p class="text-gray-500 leading-relaxed mb-4">回顧視覺化的歷史發展，理解其應用場景與常見的認知誤區。</p>
+                        <a href="https://docs.google.com/presentation/d/e/2PACX-1vS3yLRFThLqQgKAK-jV-_38JvDNMb5wM3SyeI17ZmI2Otx1HNGpOtQk0gjTM0eMO1uJSNOL9WmCXZSg/pub?start=false&loop=false&delayms=3000" target="_blank" class="inline-flex items-center gap-2 text-slate-600 font-semibold hover:text-slate-800 transition text-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+                            查看簡報
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="topic-card bg-white rounded-3xl overflow-hidden shadow-md relative">
+                <div class="topic-number text-slate-900">03</div>
+                <div class="md:flex">
+                    <div class="md:w-2/5 overflow-hidden">
+                        <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7rPAPlBrA3SSEONAunmMTnmtAM9zZ9xZdSNvt9e0LYPlPbay_v3TZhsc0lyZw75G-YKUV3YOV0t3HOrZnKZpfJ2H_zVJHmL9YoCWNAn8EXWCOPH6MysQQHviJkF3SvtDNv08zrhextSmbm7cYTHGvC7JysIQTdMDCt1Up2SRev_K6fmSUxs?key=UBXZdXmlgf08IxvaRuO3LA" alt="性別、資料、視覺與權力" class="card-img w-full h-64 md:h-full object-cover">
+                    </div>
+                    <div class="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
+                        <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3">性別、資料、視覺與權力</h3>
+                        <p class="text-gray-500 leading-relaxed mb-4">探討資料與視覺化中潛藏的性別議題與權力關係。</p>
+                        <a href="https://docs.google.com/presentation/d/e/2PACX-1vTOdyz9sr5p7GCxbvJGslfiyF-c4WUuAENc6DUW7GX5VzEwAmyyiMunYaqx8DH7Yc8gu2oJwToTaa34/pub?start=false&loop=false&delayms=3000" target="_blank" class="inline-flex items-center gap-2 text-slate-600 font-semibold hover:text-slate-800 transition text-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+                            查看簡報
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="topic-card bg-white rounded-3xl overflow-hidden shadow-md relative">
+                <div class="topic-number text-slate-900">04</div>
+                <div class="md:flex md:flex-row-reverse">
+                    <div class="md:w-2/5 overflow-hidden">
+                        <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7riNFYKJQJFgXC98jTtzNB_jq85VJZoAItFQWoqLcUrbvP8oYV0Z71m2VEpV4xkDDoYQfdEZ-kC3Te-u_FuMIW5psicdqQ8t8_q5cmXNih-VVjXlJsHVSD9sKxM1quyIPEpsrWCL_m72p_4EqdxLdiIaZ69rKuv0DtnX9CDlwllXJ8-DJI?key=UBXZdXmlgf08IxvaRuO3LA" alt="用資料說故事" class="card-img w-full h-64 md:h-full object-cover">
+                    </div>
+                    <div class="md:w-3/5 p-8 md:p-10 flex flex-col justify-center">
+                        <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3">用資料說故事：從報導到研究</h3>
+                        <p class="text-gray-500 leading-relaxed mb-4">學習如何將資料轉化為有說服力的敘事，從新聞報導到學術研究。</p>
+                        <a href="https://docs.google.com/presentation/d/e/2PACX-1vSlgSExKSDyXyqdQ3no7-Zc2YrU1C9JJcyYhImA3OH15aGNX0-VPSzrxJ-II-av4mlNOEj0DzeHSvVX/pub?start=false&loop=false&delayms=3000" target="_blank" class="inline-flex items-center gap-2 text-slate-600 font-semibold hover:text-slate-800 transition text-sm">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+                            查看簡報
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DATA-VIZ ==================== -->
+    <section id="data-viz" class="pt-24 pb-16 px-6 bg-gradient-to-br from-gray-50 via-slate-50 to-gray-100">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-block px-4 py-1 bg-slate-200 text-slate-600 rounded-full text-sm font-medium mb-4">UNIT 2</span>
+            <h2 class="text-4xl md:text-5xl font-black text-slate-700">資料處理與視覺化</h2>
+            <p class="mt-4 text-gray-500 text-lg">透過實作掌握資料分析與視覺化工具</p>
+        </div>
+    </section>
+
+    <section class="py-16 px-6">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+            <div class="topic-card bg-white rounded-3xl overflow-hidden shadow-md">
+                <div class="overflow-hidden h-52">
+                    <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7q4o9XxbxbxmX6r3SiSflKdgt888V7OGFAlrmy2fTwrm9AKpj50puCyeVe0lRu8JSya40YKiETqyd4pynV8m1hx_lDGddTaaSx-rnkCyfIclESiJJqExqXQXcZUHHGvKBGXUJNH-hH6qspiUkAeDy-S6W_-FsMwqqdb2O1H2-2UjWUnbRCQ?key=UBXZdXmlgf08IxvaRuO3LA" alt="開放資料匯入與Tableau介紹" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="p-7">
+                    <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-semibold mb-3">Tableau</span>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">開放資料匯入與 Tableau 介紹</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">認識開放資料來源，學習將資料匯入 Tableau 進行初步探索。</p>
+                    <a href="https://docs.google.com/presentation/d/e/2PACX-1vQ2HpKSJDpJ9ktSJ8g8ywxpX0ElHuSwuLIt00dpYQtoCOkC8rBAgcp_jaoLA6oLvh8McKAEjq3x9P63/pub?start=false&loop=false&delayms=3000" target="_blank" class="inline-flex items-center gap-2 text-slate-600 font-semibold hover:text-slate-800 transition text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+                        查看簡報
+                    </a>
+                </div>
+            </div>
+            <div class="topic-card bg-white rounded-3xl overflow-hidden shadow-md">
+                <div class="overflow-hidden h-52">
+                    <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7pEDoWNy82xgWHL-6ytgiqWSm4a7UrVeq1NXmznMTfVwp_56zwqVQMz_gdP3q01p8PGh_b602a69GIY5OslHXVhjzEtw1eMhW-gt2ofX9GFJ2qYGtx1HP6vifW-yfoFJKNZplid_j54EbgBJpNMfKFnipBiR0f1QgoszbftlOfaLase0_Px?key=UBXZdXmlgf08IxvaRuO3LA" alt="資料處理與描述性分析" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="p-7">
+                    <span class="inline-block px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-semibold mb-3">分析</span>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">資料處理與描述性分析</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">學習資料清理、轉換與描述性統計分析的基本方法。</p>
+                    <a href="https://docs.google.com/presentation/d/e/2PACX-1vTXjQOj2b-X7njWTB6spx_gzK2LThOodcSlP2f64psfzPxKfgOtAl7f59o2jZ6sVNsYVmKs-r4G4IZA/pub?start=false&loop=false&delayms=3000" target="_blank" class="inline-flex items-center gap-2 text-slate-600 font-semibold hover:text-slate-800 transition text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+                        查看簡報
+                    </a>
+                </div>
+            </div>
+            <div class="topic-card bg-white rounded-3xl overflow-hidden shadow-md">
+                <div class="overflow-hidden h-52">
+                    <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7p0QEIgJiaYLUh1yrpjWWXrHVqgVRQ_YoePmcreBXM_ZFemnfniNaIdsQcGFmjRF9A7rpFmaKW-n9KcPgBXFmKaYTLo6TBN40c3Vb6KlDx_xBUBdCVn8qWSo16_SRxPSsHvMT0NSkXSeATTqZDq0_XRyQpydA5YZ7WVpN46Su2P0z1stA0?key=UBXZdXmlgf08IxvaRuO3LA" alt="診斷性分析與空間資料視覺化" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="p-7">
+                    <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-semibold mb-3">空間資料</span>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">診斷性分析與空間資料視覺化</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">進階分析方法與地理空間資料的視覺化呈現。</p>
+                    <a href="https://docs.google.com/presentation/d/e/2PACX-1vRC4dKjbEuO3YRFYhGiroW5kyMD-pbDGI1X9Gh24RHN6tpxcYnjB1mvPUZkCBc3CLfTD7wtx-Sbacud/pub?start=false&loop=false&delayms=3000" target="_blank" class="inline-flex items-center gap-2 text-slate-600 font-semibold hover:text-slate-800 transition text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+                        查看簡報
+                    </a>
+                </div>
+            </div>
+            <div class="topic-card bg-white rounded-3xl overflow-hidden shadow-md">
+                <div class="overflow-hidden h-52">
+                    <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7qSLwmxOjGjNW9w-V2D6a00ckLLgrSfCGvNfMFsK6RJK72GyEU94v9BhsNnJnDnuM-iKyzmSpcwZ1UVX0ba5qe0JwjYg8kyDnVICVVa3-1QZdA6Ox9AjxFiOVpR5XI-nEpOqM2kIBZvQVSJ0hrXCgvVejzS69plV0UjPE4ln5VQR8aEl4Y?key=UBXZdXmlgf08IxvaRuO3LA" alt="資料整合I" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="p-7">
+                    <span class="inline-block px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-semibold mb-3">資料整合</span>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">資料整合：聚合、聯結與聯集 I</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">學習資料的聚合運算、資料表聯結與聯集的基礎操作。</p>
+                    <a href="https://docs.google.com/presentation/d/e/2PACX-1vSLm0h3sTQErUxkipIF8MdVA12nSPRtuMn6RpoMNo2y5HS3W5G_W1ihHMc1j8LKP8ThTkmngT79H6uT/pub?start=false&loop=false&delayms=3000" target="_blank" class="inline-flex items-center gap-2 text-slate-600 font-semibold hover:text-slate-800 transition text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+                        查看簡報
+                    </a>
+                </div>
+            </div>
+            <div class="topic-card bg-white rounded-3xl overflow-hidden shadow-md">
+                <div class="overflow-hidden h-52">
+                    <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7om2xSa1Ss9gIJ3-JME1RbtKv1LHvTBEl5AroqhyG3LwEvEEq0_nLfVAKQ2BnNutut-nZNPvplvL5qZGvkavGDizMXoG4OX8Iwr5-fB6FacQV_K__p9JRY7W7Ss_FVIycyvC7if-uJNZrerHIISC8HMaUBFqTJleLw7UT_wrj7eoM8wPmH2?key=UBXZdXmlgf08IxvaRuO3LA" alt="資料整合II" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="p-7">
+                    <span class="inline-block px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-semibold mb-3">進階整合</span>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">資料整合：聚合、聯結與聯集 II</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">延續上週內容，深入探討更複雜的資料整合技巧與應用情境。</p>
+                    <a href="https://docs.google.com/presentation/d/e/2PACX-1vQlhQUfkrnK1K-aoWHFunvv8koFgq2Ng3U-7odJWRXNZciMMlaG4icJ-h_JZ_NTVkU-0mlCYY6_qcHk/pub?start=false&loop=false&delayms=3000" target="_blank" class="inline-flex items-center gap-2 text-slate-600 font-semibold hover:text-slate-800 transition text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+                        查看簡報
+                    </a>
+                </div>
+            </div>
+            <div class="topic-card bg-white rounded-3xl overflow-hidden shadow-md">
+                <div class="overflow-hidden h-52">
+                    <img src="https://lh7-rt.googleusercontent.com/sitesz/AClOY7ok36ViuNgpZtKGAi1YsKR4wS6N3ipmkM63ROpAXaF_QbwCD9TVUam11tGuoZAPwlgHGZPzRg4mygQANQ8jbCPx5XyGXqHa2hgTKUrNLmrnmaZ8DqEegUbV9auM1CKQoCMVuD0Lo_e32vFD_vGwThm7f0rUa4dsSA8NW5vYADWxYCCDh2Z_?key=UBXZdXmlgf08IxvaRuO3LA" alt="儀表板設計" class="card-img w-full h-full object-cover">
+                </div>
+                <div class="p-7">
+                    <span class="inline-block px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-semibold mb-3">儀表板</span>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">儀表板設計</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-4">整合所學技巧，設計互動式儀表板來呈現完整的資料故事。</p>
+                    <a href="https://docs.google.com/presentation/d/e/2PACX-1vT4mw9bKtIIm2YtuGCA55U1TEo8EdnKrnKDxYXBvuh20qgmvZlNYQl-7OO0-P4YCnKLB_KiR8r1278K/pub?start=false&loop=false&delayms=3000" target="_blank" class="inline-flex items-center gap-2 text-slate-600 font-semibold hover:text-slate-800 transition text-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"/></svg>
+                        查看簡報
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-10">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-sm">性別、大數據與視覺化 &middot; 高雄醫學大學 性別研究所</p>
+        </div>
+    </footer>
+
+</body>
+</html>
