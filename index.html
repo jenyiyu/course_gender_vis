@@ -15,8 +15,8 @@
                         sans: ['"Noto Sans TC"', 'sans-serif'],
                     },
                     colors: {
-                        primary: { 50: '#fdf4ff', 100: '#fae8ff', 200: '#f5d0fe', 300: '#f0abfc', 400: '#e879f9', 500: '#d946ef', 600: '#c026d3', 700: '#a21caf' },
-                        accent: { 50: '#fff7ed', 100: '#ffedd5', 200: '#fed7aa', 300: '#fdba74', 400: '#fb923c', 500: '#f97316', 600: '#ea580c' },
+                        primary: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1' },
+                        accent: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#06b6d4', 500: '#0891b2', 600: '#0e7490' },
                         teal: { 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4', 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488' },
                     }
                 }
@@ -25,7 +25,7 @@
     </script>
     <style>
         .gradient-hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: linear-gradient(135deg, #334155 0%, #475569 40%, #64748b 100%);
         }
         .card-hover {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -54,7 +54,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, #e879f9, #fb923c);
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
             transition: width 0.3s ease;
         }
         .nav-link:hover::after {
@@ -70,14 +70,14 @@
     <!-- Navigation -->
     <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="index.html" class="text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+            <a href="index.html" class="text-lg font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
                 性別、大數據與視覺化
             </a>
             <div class="flex gap-6 text-sm font-medium">
-                <a href="index.html" class="nav-link active-nav text-gray-700 hover:text-purple-600 transition">首頁</a>
-                <a href="competencies.html" class="nav-link text-gray-500 hover:text-purple-600 transition">核心能力</a>
-                <a href="meta-thinking.html" class="nav-link text-gray-500 hover:text-purple-600 transition">後設思考</a>
-                <a href="data-viz.html" class="nav-link text-gray-500 hover:text-purple-600 transition">資料與視覺化</a>
+                <a href="index.html" class="nav-link active-nav text-gray-700 hover:text-blue-600 transition">首頁</a>
+                <a href="competencies.html" class="nav-link text-gray-500 hover:text-blue-600 transition">核心能力</a>
+                <a href="meta-thinking.html" class="nav-link text-gray-500 hover:text-blue-600 transition">後設思考</a>
+                <a href="data-viz.html" class="nav-link text-gray-500 hover:text-blue-600 transition">資料與視覺化</a>
             </div>
         </div>
     </nav>
@@ -85,9 +85,9 @@
     <!-- Hero Section -->
     <section class="gradient-hero min-h-[85vh] flex items-center relative overflow-hidden">
         <!-- Decorative blobs -->
-        <div class="absolute top-20 right-10 w-72 h-72 bg-pink-300/30 blob"></div>
-        <div class="absolute bottom-20 left-10 w-96 h-96 bg-purple-300/20 blob" style="animation-delay: 2s;"></div>
-        <div class="absolute top-1/2 left-1/3 w-48 h-48 bg-yellow-300/20 blob" style="animation-delay: 4s;"></div>
+        <div class="absolute top-20 right-10 w-72 h-72 bg-blue-400/20 blob"></div>
+        <div class="absolute bottom-20 left-10 w-96 h-96 bg-cyan-300/15 blob" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-1/3 w-48 h-48 bg-sky-300/15 blob" style="animation-delay: 4s;"></div>
 
         <div class="max-w-6xl mx-auto px-6 relative z-10 text-white">
             <p class="text-lg font-light tracking-widest mb-4 opacity-90">COURSE</p>
@@ -98,7 +98,7 @@
                 從資料視覺化的角度，提供處理、分析、理解、呈現資料的後設思考、技巧和工具。
             </p>
             <div class="mt-10 flex gap-4">
-                <a href="meta-thinking.html" class="px-8 py-3 bg-white text-purple-700 font-semibold rounded-full hover:bg-purple-50 transition shadow-lg">
+                <a href="meta-thinking.html" class="px-8 py-3 bg-white text-blue-700 font-semibold rounded-full hover:bg-blue-50 transition shadow-lg">
                     開始探索
                 </a>
                 <a href="competencies.html" class="px-8 py-3 border-2 border-white/60 text-white font-semibold rounded-full hover:bg-white/10 transition">
@@ -111,15 +111,15 @@
     <!-- Instructor -->
     <section class="py-16 px-6 bg-white">
         <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8">
-            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center shrink-0 overflow-hidden border-4 border-white shadow-lg">
+            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-blue-100 to-slate-100 flex items-center justify-center shrink-0 overflow-hidden border-4 border-white shadow-lg">
                 <!-- 替換為講師照片: <img src="images/instructor.jpg" alt="余貞誼" class="w-full h-full object-cover"> -->
-                <svg class="w-16 h-16 text-purple-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                <svg class="w-16 h-16 text-blue-300" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
             </div>
             <div class="text-center md:text-left">
-                <p class="text-sm text-purple-500 font-medium tracking-wide mb-1">授課教師</p>
+                <p class="text-sm text-blue-500 font-medium tracking-wide mb-1">授課教師</p>
                 <h3 class="text-2xl font-bold text-gray-800 mb-2">余貞誼</h3>
                 <p class="text-gray-500">高雄醫學大學 性別研究所</p>
-                <a href="mailto:chenyiyu@kmu.edu.tw" class="inline-flex items-center gap-2 text-purple-600 hover:text-purple-800 transition mt-2 text-sm">
+                <a href="mailto:chenyiyu@kmu.edu.tw" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition mt-2 text-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     chenyiyu@kmu.edu.tw
                 </a>
@@ -130,9 +130,9 @@
     <!-- Course Objective -->
     <section class="py-20 px-6">
         <div class="max-w-4xl mx-auto text-center">
-            <span class="inline-block px-4 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium mb-6">課程目標</span>
+            <span class="inline-block px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-6">課程目標</span>
             <p class="text-xl md:text-2xl leading-relaxed text-gray-600">
-                本課程從<span class="text-purple-600 font-semibold">資料視覺化（visualization）</span>的角度，來提供處理、分析、理解、呈現資料的後設思考、技巧和工具。課程組織的形式分為「<span class="text-pink-600 font-semibold">資料與視覺化的後設思考</span>」與「<span class="text-orange-500 font-semibold">資料處理與視覺化</span>」兩大單元。
+                本課程從<span class="text-blue-600 font-semibold">資料視覺化（visualization）</span>的角度，來提供處理、分析、理解、呈現資料的後設思考、技巧和工具。課程組織的形式分為「<span class="text-slate-600 font-semibold">資料與視覺化的後設思考</span>」與「<span class="text-cyan-600 font-semibold">資料處理與視覺化</span>」兩大單元。
             </p>
         </div>
     </section>
@@ -142,7 +142,7 @@
         <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
             <!-- Pillar 1 -->
             <a href="meta-thinking.html" class="card-hover group block">
-                <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl p-10 text-white relative overflow-hidden min-h-[320px] flex flex-col justify-end">
+                <div class="bg-gradient-to-br from-slate-600 to-blue-600 rounded-3xl p-10 text-white relative overflow-hidden min-h-[320px] flex flex-col justify-end">
                     <div class="absolute top-6 right-6 w-24 h-24 bg-white/10 rounded-full"></div>
                     <div class="absolute top-12 right-12 w-16 h-16 bg-white/10 rounded-full"></div>
                     <span class="text-sm font-light tracking-widest opacity-80 mb-2">UNIT 1</span>
@@ -159,7 +159,7 @@
 
             <!-- Pillar 2 -->
             <a href="data-viz.html" class="card-hover group block">
-                <div class="bg-gradient-to-br from-orange-400 to-rose-500 rounded-3xl p-10 text-white relative overflow-hidden min-h-[320px] flex flex-col justify-end">
+                <div class="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl p-10 text-white relative overflow-hidden min-h-[320px] flex flex-col justify-end">
                     <div class="absolute top-6 right-6 w-24 h-24 bg-white/10 rounded-full"></div>
                     <div class="absolute top-12 right-12 w-16 h-16 bg-white/10 rounded-full"></div>
                     <span class="text-sm font-light tracking-widest opacity-80 mb-2">UNIT 2</span>
